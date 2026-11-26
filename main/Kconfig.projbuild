@@ -1,0 +1,114 @@
+menu "MU Configuration"
+
+    menu "Identificacao"
+
+        config MU_ID
+            int "idMU (tambem usado como idOrigem)"
+            range 1 255
+            default 3
+            help
+                Identificador numerico da Merging Unit nos pacotes.
+
+        config MU_ID_ATIVO
+            string "idAtivo"
+            default "ALIM-03"
+            help
+                Identificador do ativo monitorado (campo idAtivo dos pacotes 99/x).
+
+    endmenu
+
+    menu "Wi-Fi"
+
+        config MU_WIFI_SSID
+            string "SSID"
+            default ""
+            help
+                Rede Wi-Fi de 2,4 GHz. Fica apenas no sdkconfig local.
+
+        config MU_WIFI_PASSWORD
+            string "Senha"
+            default ""
+            help
+                Senha da rede. Nunca coloque este valor no codigo nem no Git.
+
+    endmenu
+
+    menu "Receptores (MU e cliente)"
+
+        config MU_M2_IP
+            string "IP do Modulo 2 (Protecao)"
+            default "192.168.0.102"
+
+        config MU_M2_PORT
+            int "Porta do Modulo 2"
+            range 1 65535
+            default 5200
+
+        config MU_M3_IP
+            string "IP do Modulo 3 (Supervisorio)"
+            default "192.168.0.103"
+
+        config MU_M3_PORT
+            int "Porta do Modulo 3"
+            range 1 65535
+            default 5300
+
+        config MU_M4_IP
+            string "IP do Modulo 4 (Filtros)"
+            default "192.168.0.104"
+
+        config MU_M4_PORT
+            int "Porta do Modulo 4"
+            range 1 65535
+            default 5400
+
+    endmenu
+
+    menu "Servidor de comandos"
+
+        config MU_CMD_PORT
+            int "Porta do servidor de comandos (100/10, 100/11)"
+            range 1 65535
+            default 5100
+
+    endmenu
+
+    menu "SNTP"
+
+        config MU_SNTP_SERVER
+            string "Servidor SNTP"
+            default "pool.ntp.org"
+            help
+                Pode ser o IP do roteador ou de um PC da bancada se nao houver internet.
+
+    endmenu
+
+    menu "Parametros padrao (sobrescritos pela NVS e pelo 100/11)"
+
+        config MU_INTERVALO_ENVIO_MS
+            int "intervaloEnvioMs (modo normal)"
+            range 1 100
+            default 100
+
+        config MU_LIMIAR_DELTA_I_DA
+            int "limiarDeltaI em decimos de A"
+            range 1 10000
+            default 60
+            help
+                Limiar L do detector. 60 = 6,0 A. Valor final definido nos testes com a maleta.
+
+        config MU_CANAL_A_GANHO_MILLI
+            int "canalA.ganho em milesimos"
+            range 1 100000
+            default 1000
+            help
+                1000 = ganho 1,000.
+
+        config MU_CANAL_A_OFFSET_MA
+            int "canalA.offset em mA"
+            range -100000 100000
+            default 0
+
+    endmenu
+
+endmenu

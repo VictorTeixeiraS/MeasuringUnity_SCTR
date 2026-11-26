@@ -1,0 +1,41 @@
+# sdkconfig.defaults - Merging Unit (Modulo 1a)
+# Valores aplicados quando o sdkconfig local nao existe.
+# Credenciais e IPs ficam no menu "MU Configuration" (sdkconfig local, fora do Git).
+
+CONFIG_IDF_TARGET="esp32"
+
+# Flash do ESP32-WROOM-32
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+
+# CPU a 240 MHz
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+
+# Tick de 1 ms (tx_scheduler roda a cada 1 ms)
+CONFIG_FREERTOS_HZ=1000
+
+# Task Watchdog com panico; supervisor alimenta as tarefas da aplicacao
+CONFIG_ESP_TASK_WDT_EN=y
+CONFIG_ESP_TASK_WDT_INIT=y
+CONFIG_ESP_TASK_WDT_PANIC=y
+CONFIG_ESP_TASK_WDT_TIMEOUT_S=5
+CONFIG_ESP_TASK_WDT_CHECK_IDLE_TASK_CPU0=y
+CONFIG_ESP_TASK_WDT_CHECK_IDLE_TASK_CPU1=y
+
+# Rede no Core 0: tarefas do Wi-Fi, da lwIP e do esp_timer
+CONFIG_ESP_WIFI_TASK_PINNED_TO_CORE_0=y
+CONFIG_LWIP_TCPIP_TASK_AFFINITY_CPU0=y
+CONFIG_ESP_TIMER_TASK_AFFINITY_CPU0=y
+CONFIG_ESP_MAIN_TASK_AFFINITY_CPU0=y
+
+# Wi-Fi com menor latencia (economia de energia desligada no codigo)
+CONFIG_ESP_WIFI_IRAM_OPT=y
+CONFIG_ESP_WIFI_RX_IRAM_OPT=y
+
+# Callback do DMA do ADC em IRAM (continua rodando durante escrita na flash)
+CONFIG_ADC_CONTINUOUS_ISR_IRAM_SAFE=y
+
+# SNTP para o campo ts (epoch ms UTC)
+CONFIG_LWIP_SNTP_MAX_SERVERS=2
+
+# Compilacao otimizada para desempenho
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
